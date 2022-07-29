@@ -1,0 +1,21 @@
+.todo-list {
+  width: min(30rem, 70rem);
+  margin: 3rem auto;
+
+  .input {
+    font: inherit;
+    display: block;
+    border-radius: 4px;
+    width: 100%;
+    border: 1px solid #ccc;
+    line-height: 1.5rem;
+    padding-inline: .25rem;
+    margin-bottom: .98rem;
+
+    &:focus {
+      outline: none;
+      background: #fad0ec;
+      border-color: #8b005d;
+    }
+  }
+}

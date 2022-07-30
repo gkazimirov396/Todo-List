@@ -16,7 +16,7 @@ const Todos = props => {
   };
 
   const inputSaveHandler = id => {
-    const savedTodo = [...props.items].map(item => {
+    const savedTodo = props.items.map(item => {
       return item.id === id ? (item.text = enteredChangedValue) : item.text;
     });
 
@@ -26,7 +26,6 @@ const Todos = props => {
 
   const inputCancelHandler = () => {
     setIsEditing(null);
-    setEnteredChangedValue('');
   };
 
   return (

@@ -8,7 +8,7 @@ const TodoItem = props => {
       {props.children}
       <div className={classes.actions}>
         {props.show !== props.id && <button className={classes.btn} onClick={props.onShowInput}>
-          Change
+          Edit
         </button>}
         {props.show !== props.id && <button className={classes['btn--alt']} onClick={props.onRemove}>
           Delete

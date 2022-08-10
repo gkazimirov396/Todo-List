@@ -1,0 +1,50 @@
+@use '../../assets/scss/config' as *;
+
+.todo-item {
+  @include centered;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+  padding: 1.2rem 2rem;
+  text-align: center;
+  line-height: 1.9rem;
+
+  > input {
+    @extend %input;
+    margin-bottom: 1.075rem;
+  }
+
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.8rem;
+    width: 100%;
+
+    .btn-primary {
+      @extend %btn;
+      color: #fff;
+      border: 1px solid map-get($colors, primary);
+      background: map-get($colors, primary);
+
+      &:is(:hover, :active) {
+        background-color: map-get($colors, primary-hover);
+        border-color: map-get($colors, primary-hover);
+      }
+    }
+
+    .btn--alt {
+      @extend %btn;
+      color: #000;
+      border: 1px solid map-get($colors, secondary);
+      background: transparent;
+
+      &:is(:hover, :active) {
+        background-color: map-get($colors, secondary-hover);
+        border-color: map-get($colors, secondary-hover);
+        color: #fff;
+      }
+    }
+  }
+
+}

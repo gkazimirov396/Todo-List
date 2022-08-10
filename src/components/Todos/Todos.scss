@@ -1,0 +1,5 @@
+@use '../../assets/scss/config' as *;
+
+.todo-list {
+  @include centered;
+}

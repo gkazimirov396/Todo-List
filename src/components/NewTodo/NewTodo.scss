@@ -1,0 +1,48 @@
+@use '../../assets/scss/config' as *;
+
+.todo-form {
+  @include centered;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 1.8rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+  font-size: 1rem;
+
+
+  & .form-control {
+    width: 100%;
+    
+    & label {
+      color: #000;
+      font-weight: bold;
+    }
+
+    & input {
+      @extend %input;
+    }
+  }
+
+  & .form-actions {
+    width: 100%;
+
+    & button {
+      @extend %btn;
+      border-radius: 0;
+      width: 100%;
+      font: inherit;
+      border: 1px solid map-get($colors, primary);
+      background: map-get($colors, primary);
+      color: #fff;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.26);
+
+      &:is(:hover, :active) {
+        background-color: map-get($colors, primary-hover);
+        border-color: map-get($colors, primary-hover);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
+      }
+    }
+  }
+}
+

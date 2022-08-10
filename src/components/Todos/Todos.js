@@ -1,57 +1,48 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { cancelTodoAction, saveTodoAction, showTodoAction } from '../../store/todo/todo-actions';
+
 import TodoItem from '../TodoItem/TodoItem';
-import classes from './Todos.module.scss';
+import './Todos.scss';
 
 const Todos = props => {
-  const [isEditing, setIsEditing] = useState(null);
   const [enteredChangedValue, setEnteredChangedValue] = useState('');
+
+  const todos = useSelector(state => state.todo.todos);
+  const dispatch = useDispatch();
 
   const inputChangeHandler = event => {
     setEnteredChangedValue(event.target.value);
   };
 
   const showInputHandler = id => {
-    setIsEditing(id);
-    setEnteredChangedValue('');
+    dispatch(showTodoAction(id));
   };
 
   const inputSaveHandler = id => {
-    const savedTodo = props.items.map(item => {
-      return item.id === id ? (item.text = enteredChangedValue) : item.text;
-    });
+    const savedTodo = dispatch(saveTodoAction({text: enteredChangedValue, id }));
 
     setEnteredChangedValue(savedTodo);
-    setIsEditing(null);
+    dispatch(cancelTodoAction());
   };
 
   const inputCancelHandler = () => {
-    setIsEditing(null);
+    dispatch(cancelTodoAction());
   };
 
   return (
-    <ul className={classes['todo-list']}>
-      {props.items.map((item, idx) => (
+    <ul className="todo-list">
+      {todos.map((item, idx) => (
         <TodoItem
           key={idx}
-          onShowInput={showInputHandler.bind(null, item.id)}
-          onRemove={props.onRemove.bind(null, idx)}
-          show={isEditing}
+          onShowInput={() => showInputHandler(item.id)}
+          onRemove={() => props.onRemove(idx)}
           id={item.id}
-          onSave={inputSaveHandler.bind(null, item.id)}
+          onSave={() => inputSaveHandler(item.id)}
           onCancel={inputCancelHandler}
-        >
-          {isEditing === item.id ? (
-            <input
-              key={item.id}
-              type="text"
-              className={classes.input}
-              onChange={inputChangeHandler}
-              defaultValue={item.text}
-            />
-          ) : (
-            item.text
-          )}
-        </TodoItem>
+          onChange={inputChangeHandler}
+          value={item.text}
+        />
       ))}
     </ul>
   );

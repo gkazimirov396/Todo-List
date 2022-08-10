@@ -1,24 +1,36 @@
-import React, { useState } from 'react';
-import { v4 } from 'uuid';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuid } from 'uuid';
 import NewTodo from './components/NewTodo/NewTodo';
 
 import Todos from './components/Todos/Todos';
+import { addTodoAction, cancelTodoAction, deleteTodoAction } from './store/todo/todo-actions';
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
+  const todos = useSelector(state => state.todo.todos);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const addTodoHandler = enteredText => {
-    setTodos(prevState => [{ text: enteredText, id: v4() }, ...prevState]);
+    const newTodo = {
+      text: enteredText,
+      id: uuid()
+    };
+    dispatch(addTodoAction(newTodo));
+    dispatch(cancelTodoAction());
   };
 
   const removeTodoHandler = id => {
-    setTodos(prevState => prevState.filter((item, idx) => idx !== id));
+    dispatch(deleteTodoAction(id));
   };
 
   return (
     <>
       <NewTodo onAddTodo={addTodoHandler} />
-      <Todos items={todos} onRemove={removeTodoHandler} />
+      <Todos onRemove={removeTodoHandler} />
     </>
   );
 };

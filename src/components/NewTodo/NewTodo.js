@@ -1,41 +1,52 @@
 import React, { useState } from 'react';
+import { Form, Button, Input } from 'antd';
 
-import classes from './NewTodo.module.scss';
+import './NewTodo.scss';
 
 const NewTodo = props => {
   const [enteredValue, setEnteredValue] = useState('');
+  const [form] = Form.useForm();
 
   const todoChangeHandler = event => {
     setEnteredValue(event.target.value);
   };
 
-  const todoSubmitHandler = event => {
-    event.preventDefault();
-
+  const todoFinishHandler = () => {
     props.onAddTodo(enteredValue);
-    setEnteredValue('');
+    form.resetFields();
   };
 
   return (
-    <form
-      onSubmit={todoSubmitHandler}
-      className={classes['todo-form']}
+    <Form
+      onFinish={todoFinishHandler}
+      className="todo-form"
+      name="todoForm"
+      form={form}
+      requiredMark={false}
+      layout="vertical"
     >
-      <div className={classes['form-control']}>
-        <label htmlFor="new-todo">Enter Todo</label>
-        <input
-          type="text"
-          id="new-todo"
-          onChange={todoChangeHandler}
-          value={enteredValue}
-          autoComplete="off"
-          required
-        />
+      <div className="form-control">
+        <Form.Item
+          label="Enter Todo"
+          name="newTodo"
+          rules={[
+            {
+              required: true,
+              message: 'This field is required!',
+            },
+          ]}
+        >
+          <Input
+            autoComplete="off"
+            value={enteredValue}
+            onChange={todoChangeHandler}
+          />
+        </Form.Item>
       </div>
-      <div className={classes['form-actions']}>
-        <button>Add Todo</button>
+      <div className="form-actions">
+        <Button htmlType="submit">Add Todo</Button>
       </div>
-    </form>
+    </Form>
   );
 };
 

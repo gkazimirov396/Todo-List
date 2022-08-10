@@ -1,0 +1,35 @@
+@use 'variables' as *;
+
+%btn {
+  cursor: pointer;
+  width: 30%;
+  height: 2.4rem;
+  border-radius: 6px;
+  &:focus {
+    outline: none;
+  }
+  &:disabled {
+    background-color: #ccc !important;
+    border-color: #ccc !important;
+    cursor: not-allowed;
+    color: #000;
+  }
+}
+
+%input {
+  font: inherit;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  line-height: 1.5rem;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+    background: #fad0ec;
+    border-color: map-get($colors, primary-hover);
+  }
+  &:hover {
+    border-color: map-get($colors, primary-hover);
+  }
+}

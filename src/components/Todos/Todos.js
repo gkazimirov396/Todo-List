@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cancelTodoAction, saveTodoAction, showTodoAction } from '../../store/todo/todo-actions';
+import { cancelTodoAction, saveTodoAction, deleteTodoAction, showTodoAction } from '../../store/todo/todo-actions';
 
 import TodoItem from '../TodoItem/TodoItem';
 import './Todos.scss';
@@ -13,6 +13,10 @@ const Todos = props => {
 
   const inputChangeHandler = event => {
     setEnteredChangedValue(event.target.value);
+  };
+
+  const removeTodoHandler = id => {
+    dispatch(deleteTodoAction(id));
   };
 
   const showInputHandler = id => {
@@ -36,7 +40,7 @@ const Todos = props => {
         <TodoItem
           key={idx}
           onShowInput={() => showInputHandler(item.id)}
-          onRemove={() => props.onRemove(idx)}
+          onRemove={() => removeTodoHandler(idx)}
           id={item.id}
           onSave={() => inputSaveHandler(item.id)}
           onCancel={inputCancelHandler}

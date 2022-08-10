@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
 import { Form, Button, Input } from 'antd';
+import { v4 as uuid } from 'uuid';
+import { addTodoAction, cancelTodoAction } from '../../store/todo/todo-actions';
 
+import { useDispatch } from 'react-redux';
 import './NewTodo.scss';
 
-const NewTodo = props => {
+const NewTodo = () => {
   const [enteredValue, setEnteredValue] = useState('');
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
 
   const todoChangeHandler = event => {
     setEnteredValue(event.target.value);
   };
 
   const todoFinishHandler = () => {
-    props.onAddTodo(enteredValue);
+    const newTodo = {
+      text:enteredValue,
+      id: uuid()
+    };
+    dispatch(addTodoAction(newTodo));
+    dispatch(cancelTodoAction());
     form.resetFields();
   };
 

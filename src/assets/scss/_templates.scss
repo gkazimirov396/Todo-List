@@ -26,7 +26,7 @@
   &:focus {
     outline: none;
     box-shadow: none;
-    background: #fad0ec;
+    background: map-get($colors, primary-focus);
     border-color: map-get($colors, primary-hover);
   }
   &:hover {

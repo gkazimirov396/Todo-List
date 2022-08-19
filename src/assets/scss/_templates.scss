@@ -1,4 +1,4 @@
-@use 'variables' as *;
+@use 'functions' as *;
 
 %btn {
   cursor: pointer;
@@ -26,10 +26,10 @@
   &:focus {
     outline: none;
     box-shadow: none;
-    background: map-get($colors, primary-focus);
-    border-color: map-get($colors, primary-hover);
+    background: color(primary-focus);
+    border-color: color(primary-hover);
   }
   &:hover {
-    border-color: map-get($colors, primary-hover);
+    border-color: color(primary-hover);
   }
 }

@@ -32,15 +32,15 @@
       border-radius: 0;
       width: 100%;
       font: inherit;
-      border: 1px solid map-get($colors, primary);
-      background: map-get($colors, primary);
+      border: 1px solid color(primary);
+      background: color(primary);
       color: #fff;
-      box-shadow: 0 0 4px rgba(0, 0, 0, 0.26);
+      box-shadow: 0 0 4px rgba(#161616, 0.26);
 
       &:is(:hover, :active) {
-        background-color: map-get($colors, primary-hover);
-        border-color: map-get($colors, primary-hover);
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
+        background-color: color(primary-hover);
+        border-color: color(primary-hover);
+        box-shadow: 0 0 8px rgba(#161616, 0.26);
       }
     }
   }

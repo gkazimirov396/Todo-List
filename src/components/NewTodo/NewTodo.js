@@ -14,11 +14,11 @@ const NewTodo = () => {
   const todoChangeHandler = event => {
     setEnteredValue(event.target.value);
   };
-
+  
   const todoFinishHandler = () => {
     const newTodo = {
-      text:enteredValue,
-      id: uuid()
+      text: enteredValue,
+      id: uuid(),
     };
     dispatch(addTodoAction(newTodo));
     dispatch(cancelTodoAction());

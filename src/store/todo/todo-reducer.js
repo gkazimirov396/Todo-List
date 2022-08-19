@@ -1,4 +1,4 @@
-import { ADD, CANCEL, DEL, DISABLE, SAVE, SHOW } from '../types';
+import { ADD, CANCEL, DEL, ENABLE, SAVE, EDIT } from '../types';
 
 const initialState = {
   todos: JSON.parse(localStorage.getItem('todos')) ?? [],
@@ -18,7 +18,7 @@ const todoReducer = (state = initialState, action) => {
         ...state,
         todos: state.todos.filter((item, idx) => idx !== action.payload),
       };
-    case SHOW:
+    case EDIT:
       return {
         ...state,
         isEditing: action.payload,
@@ -38,7 +38,7 @@ const todoReducer = (state = initialState, action) => {
         isEditing: null,
         isDisabled: true
       };
-    case DISABLE:
+    case ENABLE:
       return {
         ...state,
         isDisabled: false

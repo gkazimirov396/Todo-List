@@ -2,7 +2,7 @@ import React from 'react';
 import { CloseOutlined, SaveOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { Input, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { disableInputAction } from '../../store/todo/todo-actions';
+import { enableInputAction } from '../../store/todo/todo-actions';
 
 import './TodoItem.scss';
 
@@ -12,8 +12,8 @@ const TodoItem = props => {
 
   const dispatch = useDispatch();
 
-  const disableInputHandler = () => {
-    dispatch(disableInputAction());
+  const enableInputHandler = () => {
+    dispatch(enableInputAction());
   }
 
   return (
@@ -25,7 +25,7 @@ const TodoItem = props => {
           onChange={props.onChange}
           defaultValue={props.value}
           size='small'
-          onInput={disableInputHandler}
+          onInput={enableInputHandler}
         />
       ) : (
         props.value

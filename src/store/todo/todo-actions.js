@@ -1,4 +1,4 @@
-import { ADD, DEL, CANCEL, SAVE, SHOW, DISABLE } from '../types';
+import { ADD, DEL, CANCEL, SAVE, EDIT, ENABLE } from '../types';
 
 export const addTodoAction = payload => dispatch => {
   return dispatch({ type: ADD, payload });
@@ -8,8 +8,8 @@ export const deleteTodoAction = id => dispatch => {
   return dispatch({ type: DEL, payload: id });
 };
 
-export const showTodoAction = id => dispatch => {
-  return dispatch({ type: SHOW, payload: id });
+export const editTodoAction = id => dispatch => {
+  return dispatch({ type: EDIT, payload: id });
 };
 
 export const saveTodoAction = payload => dispatch => {
@@ -20,6 +20,6 @@ export const cancelTodoAction = () => dispatch => {
   return dispatch({ type: CANCEL });
 };
 
-export const disableInputAction = () => dispatch => {
-  return dispatch({ type: DISABLE });
+export const enableInputAction = () => dispatch => {
+  return dispatch({ type: ENABLE });
 };

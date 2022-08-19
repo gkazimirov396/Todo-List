@@ -24,24 +24,24 @@
     .btn-primary {
       @extend %btn;
       color: #fff;
-      border: 1px solid map-get($colors, primary);
-      background: map-get($colors, primary);
+      border: 1px solid color(primary);
+      background: color(primary);
 
       &:is(:hover, :active) {
-        background-color: map-get($colors, primary-hover);
-        border-color: map-get($colors, primary-hover);
+        background-color: color(primary-hover);
+        border-color: color(primary-hover);
       }
     }
 
     .btn--alt {
       @extend %btn;
       color: #000;
-      border: 1px solid map-get($colors, secondary);
+      border: 1px solid color(secondary);
       background: transparent;
 
       &:is(:hover, :active) {
-        background-color: map-get($colors, secondary-hover);
-        border-color: map-get($colors, secondary-hover);
+        background-color: color(secondary-hover);
+        border-color: color(secondary-hover);
         color: #fff;
       }
     }

@@ -26,10 +26,10 @@
   &:focus {
     outline: none;
     box-shadow: none;
-    background: color(primary-focus);
-    border-color: color(primary-hover);
+    background: color(primary, focus);
+    border-color: color(primary, hover);
   }
   &:hover {
-    border-color: color(primary-hover);
+    border-color: color(primary, hover);
   }
 }

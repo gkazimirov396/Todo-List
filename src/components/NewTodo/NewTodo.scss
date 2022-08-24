@@ -38,8 +38,8 @@
       box-shadow: 0 0 4px rgba(#161616, 0.26);
 
       &:is(:hover, :active) {
-        background-color: color(primary-hover);
-        border-color: color(primary-hover);
+        background-color: color(primary, hover);
+        border-color: color(primary, hover);
         box-shadow: 0 0 8px rgba(#161616, 0.26);
       }
     }

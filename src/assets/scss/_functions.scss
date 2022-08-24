@@ -1,5 +1,5 @@
-@use 'variables' as *;
+@use 'colors' as *;
 
-@function color($color-name) {
-  @return map-get($colors, $color-name);
+@function color($submap, $key: index) {
+  @return map-get($colors, $submap, $key);
 }

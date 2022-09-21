@@ -16,7 +16,7 @@ const todoReducer = (state = initialState, action) => {
     case DEL:
       return {
         ...state,
-        todos: state.todos.filter((item, idx) => idx !== action.payload),
+        todos: action.payload,
       };
     case EDIT:
       return {
@@ -26,11 +26,7 @@ const todoReducer = (state = initialState, action) => {
     case SAVE:
       return {
         ...state,
-        todos: state.todos.map(item => {
-          return item.id === action.payload.id
-            ? {text: action.payload.text, id: action.payload.id}
-            : item;
-        }),
+        todos: action.payload,
       };
     case CANCEL:
       return {

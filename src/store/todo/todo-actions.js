@@ -4,8 +4,8 @@ export const addTodoAction = payload => dispatch => {
   return dispatch({ type: ADD, payload });
 };
 
-export const deleteTodoAction = id => dispatch => {
-  return dispatch({ type: DEL, payload: id });
+export const deleteTodoAction = payload => dispatch => {
+  return dispatch({ type: DEL, payload });
 };
 
 export const editTodoAction = id => dispatch => {

@@ -15,16 +15,28 @@ const Todos = props => {
     setEnteredChangedValue(event.target.value);
   };
 
+  const removeTodo = id => {
+    return todos.filter((item, idx) => idx !== id);
+  };
+
   const removeTodoHandler = id => {
-    dispatch(deleteTodoAction(id));
+    dispatch(deleteTodoAction(removeTodo(id)));
   };
 
   const editTodoHandler = id => {
     dispatch(editTodoAction(id));
   };
 
+  const saveTodo = id => {
+    return todos.map(item => {
+      return item.id === id
+        ? {text: enteredChangedValue, id}
+        : item;
+    })
+  };
+
   const inputSaveHandler = id => {
-    const savedTodo = dispatch(saveTodoAction({text: enteredChangedValue, id }));
+    const savedTodo = dispatch(saveTodoAction(saveTodo(id)));
 
     setEnteredChangedValue(savedTodo);
     dispatch(cancelTodoAction());

@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import { Form, Button, Input } from 'antd';
 import { v4 as uuid } from 'uuid';
-import { addTodoAction, cancelTodoAction } from '../../store/todo/todo-actions';
+import { addTodoAction } from '../../store/todo/todo-actions';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './NewTodo.scss';
+import { selectIsEditing } from '../../store/selectors';
 
 const NewTodo = () => {
   const [enteredValue, setEnteredValue] = useState('');
+  const isEditing = useSelector(selectIsEditing);
   const [form] = Form.useForm();
   const dispatch = useDispatch();
 
   const todoChangeHandler = event => {
     setEnteredValue(event.target.value);
   };
-  
+
   const todoFinishHandler = () => {
     const newTodo = {
-      text: enteredValue,
+      value: enteredValue,
       id: uuid(),
     };
     dispatch(addTodoAction(newTodo));
-    dispatch(cancelTodoAction());
     form.resetFields();
   };
 
@@ -49,11 +50,14 @@ const NewTodo = () => {
             autoComplete="off"
             value={enteredValue}
             onChange={todoChangeHandler}
+            disabled={!!isEditing}
           />
         </Form.Item>
       </div>
       <div className="form-actions">
-        <Button htmlType="submit">Add Todo</Button>
+        <Button htmlType="submit" disabled={!!isEditing}>
+          Add Todo
+        </Button>
       </div>
     </Form>
   );

@@ -1,25 +1,23 @@
-import { ADD, DEL, CANCEL, SAVE, EDIT, ENABLE } from '../types';
+import {
+  CREATE_TODO,
+  REMOVE_TODO,
+  EDIT_TODO,
+  SAVE_TODO,
+  CANCEL_EDIT_TODO,
+  ENABLE_INPUT,
+  REORDER_TODOS,
+} from '../types';
 
-export const addTodoAction = payload => dispatch => {
-  return dispatch({ type: ADD, payload });
-};
+export const addTodoAction = payload => ({ type: CREATE_TODO, payload });
 
-export const deleteTodoAction = payload => dispatch => {
-  return dispatch({ type: DEL, payload });
-};
+export const deleteTodoAction = payload => ({ type: REMOVE_TODO, payload });
 
-export const editTodoAction = id => dispatch => {
-  return dispatch({ type: EDIT, payload: id });
-};
+export const reorderTodosAction = newTodos => ({ type: REORDER_TODOS, payload: newTodos });
 
-export const saveTodoAction = payload => dispatch => {
-  return dispatch({ type: SAVE, payload });
-};
+export const editTodoAction = id => ({ type: EDIT_TODO, payload: id });
 
-export const cancelTodoAction = () => dispatch => {
-  return dispatch({ type: CANCEL });
-};
+export const saveTodoAction = payload => ({ type: SAVE_TODO, payload });
 
-export const enableInputAction = () => dispatch => {
-  return dispatch({ type: ENABLE });
-};
+export const cancelTodoAction = () => ({ type: CANCEL_EDIT_TODO });
+
+export const enableInputAction = () => ({ type: ENABLE_INPUT });

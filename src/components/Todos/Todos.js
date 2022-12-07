@@ -1,14 +1,22 @@
 import React, { useState } from 'react';
+import { AnimatePresence, Reorder } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
-import { cancelTodoAction, saveTodoAction, deleteTodoAction, editTodoAction } from '../../store/todo/todo-actions';
+import {
+  cancelTodoAction,
+  saveTodoAction,
+  deleteTodoAction,
+  editTodoAction,
+  reorderTodosAction,
+} from '../../store/todo/todo-actions';
 
 import TodoItem from '../TodoItem/TodoItem';
 import './Todos.scss';
+import { selectAllTodos } from '../../store/selectors';
 
-const Todos = props => {
+const Todos = () => {
   const [enteredChangedValue, setEnteredChangedValue] = useState('');
 
-  const todos = useSelector(state => state.todo.todos);
+  const todos = useSelector(selectAllTodos);
   const dispatch = useDispatch();
 
   const inputChangeHandler = event => {
@@ -16,7 +24,7 @@ const Todos = props => {
   };
 
   const removeTodo = id => {
-    return todos.filter((item, idx) => idx !== id);
+    return todos.filter(todo => todo.id !== id);
   };
 
   const removeTodoHandler = id => {
@@ -29,38 +37,43 @@ const Todos = props => {
 
   const saveTodo = id => {
     return todos.map(item => {
-      return item.id === id
-        ? {text: enteredChangedValue, id}
-        : item;
-    })
+      return item.id === id ? { value: enteredChangedValue, id } : item;
+    });
   };
 
   const inputSaveHandler = id => {
-    const savedTodo = dispatch(saveTodoAction(saveTodo(id)));
-
-    setEnteredChangedValue(savedTodo);
-    dispatch(cancelTodoAction());
+    dispatch(saveTodoAction(saveTodo(id)));
   };
 
   const inputCancelHandler = () => {
     dispatch(cancelTodoAction());
   };
 
+  const reorderTodosHandler = newTodos => {
+    dispatch(reorderTodosAction(newTodos));
+  };
+
   return (
-    <ul className="todo-list">
-      {todos.map((item, idx) => (
-        <TodoItem
-          key={idx}
-          onShowInput={() => editTodoHandler(item.id)}
-          onRemove={() => removeTodoHandler(idx)}
-          id={item.id}
-          onSave={() => inputSaveHandler(item.id)}
-          onCancel={inputCancelHandler}
-          onChange={inputChangeHandler}
-          value={item.text}
-        />
-      ))}
-    </ul>
+    <Reorder.Group
+      values={todos}
+      axis="y"
+      onReorder={reorderTodosHandler}
+      className="todo-list"
+    >
+      <AnimatePresence initial={false}>
+        {todos.map(todo => (
+          <TodoItem
+            key={todo.id}
+            onEdit={() => editTodoHandler(todo.id)}
+            onRemove={() => removeTodoHandler(todo.id)}
+            todo={todo}
+            onSave={() => inputSaveHandler(todo.id)}
+            onCancel={inputCancelHandler}
+            onChange={inputChangeHandler}
+          />
+        ))}
+      </AnimatePresence>
+    </Reorder.Group>
   );
 };
 

@@ -1,62 +1,96 @@
 import React from 'react';
-import { CloseOutlined, SaveOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import {
+  CloseOutlined,
+  SaveOutlined,
+  EditOutlined,
+  DeleteOutlined,
+} from '@ant-design/icons';
 import { Input, Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { enableInputAction } from '../../store/todo/todo-actions';
+import {
+  enableInputAction,
+  cancelTodoAction,
+} from '../../store/todo/todo-actions';
 
 import './TodoItem.scss';
+import { Reorder } from 'framer-motion';
+import { selectIsDisabled, selectIsEditing } from '../../store/selectors';
 
-const TodoItem = props => {
-  const isEditing = useSelector(state => state.todo.isEditing);
-  const isDisabled = useSelector(state => state.todo.isDisabled);
+const todoAnimation = {
+  initial: {
+    lineHeight: 0,
+    opacity: 0,
+  },
+  animate: {
+    lineHeight: 2.17,
+    opacity: 1,
+  },
+  exit: {
+    opacity: 0,
+  },
+};
+
+const TodoItem = ({ todo, onChange, onSave, onRemove, onEdit }) => {
+  const isEditing = useSelector(selectIsEditing);
+  const isDisabled = useSelector(selectIsDisabled);
 
   const dispatch = useDispatch();
 
   const enableInputHandler = () => {
     dispatch(enableInputAction());
-  }
+  };
 
   return (
-    <li className="todo-item">
-      {isEditing === props.id ? (
+    <Reorder.Item
+      whileDrag={{ scale: 1.1, cursor: 'move' }}
+      value={todo}
+      {...todoAnimation}
+      className="todo-item"
+    >
+      {isEditing === todo.id ? (
         <Input
-          key={props.id}
-          type="text"
-          onChange={props.onChange}
-          defaultValue={props.value}
-          size='small'
+          onChange={onChange}
+          defaultValue={todo.value}
+          size="small"
           onInput={enableInputHandler}
         />
       ) : (
-        props.value
+        todo.value
       )}
       <div className="actions">
-        {isEditing !== props.id && (
-          <Button className="btn-primary" onClick={props.onShowInput}>
+        {isEditing !== todo.id && (
+          <Button className="btn-primary" onClick={onEdit}>
             Edit
-            <EditOutlined style={{marginLeft: '0.3rem'}} />
+            <EditOutlined style={{ marginLeft: '0.3rem' }} />
           </Button>
         )}
-        {isEditing !== props.id && (
-          <Button className="btn--alt" onClick={props.onRemove}>
+        {isEditing !== todo.id && (
+          <Button className="btn--alt" onClick={onRemove}>
             Delete
-            <DeleteOutlined style={{marginLeft: '0.3rem'}} />
+            <DeleteOutlined style={{ marginLeft: '0.3rem' }} />
           </Button>
         )}
-        {isEditing === props.id && (
-          <Button className="btn-primary" onClick={props.onSave} disabled={isDisabled}>
+        {isEditing === todo.id && (
+          <Button
+            className="btn-primary"
+            onClick={onSave}
+            disabled={isDisabled}
+          >
             Save
-            <SaveOutlined style={{marginLeft: '0.3rem'}} />
+            <SaveOutlined style={{ marginLeft: '0.3rem' }} />
           </Button>
         )}
-        {isEditing === props.id && (
-          <Button className="btn--alt" onClick={props.onCancel}>
+        {isEditing === todo.id && (
+          <Button
+            className="btn--alt"
+            onClick={() => dispatch(cancelTodoAction())}
+          >
             Cancel
-            <CloseOutlined style={{marginLeft: '0.1rem'}} />
+            <CloseOutlined style={{ marginLeft: '0.1rem' }} />
           </Button>
         )}
       </div>
-    </li>
+    </Reorder.Item>
   );
 };
 

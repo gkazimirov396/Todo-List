@@ -1,6 +1,7 @@
-export const ADD = 'ADD';
-export const DEL = 'DEL';
-export const SAVE = 'SAVE';
-export const EDIT = 'EDIT';
-export const CANCEL = 'CANCEL';
-export const ENABLE = 'ENABLE';
+export const CREATE_TODO = 'CREATE_TODO';
+export const REMOVE_TODO = 'REMOVE_TODO';
+export const SAVE_TODO = 'SAVE_TODO';
+export const EDIT_TODO = 'EDIT_TODO';
+export const CANCEL_EDIT_TODO = 'CANCEL_EDIT_TODO';
+export const ENABLE_INPUT = 'ENABLE_INPUT';
+export const REORDER_TODOS = 'REORDER_TODOS';

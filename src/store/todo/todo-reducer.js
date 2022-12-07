@@ -1,44 +1,58 @@
-import { ADD, CANCEL, DEL, ENABLE, SAVE, EDIT } from '../types';
+import {
+  REORDER_TODOS,
+  CREATE_TODO,
+  REMOVE_TODO,
+  EDIT_TODO,
+  SAVE_TODO,
+  CANCEL_EDIT_TODO,
+  ENABLE_INPUT,
+} from '../types';
 
 const initialState = {
-  todos: JSON.parse(localStorage.getItem('todos')) ?? [],
+  todos: [],
   isEditing: null,
-  isDisabled: true
+  isDisabled: true,
 };
 
 const todoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD:
+    case CREATE_TODO:
       return {
         ...state,
-        todos: [action.payload, ...state.todos],
+        todos: [...state.todos, action.payload],
       };
-    case DEL:
+    case REMOVE_TODO:
       return {
         ...state,
         todos: action.payload,
       };
-    case EDIT:
+    case EDIT_TODO:
       return {
         ...state,
         isEditing: action.payload,
       };
-    case SAVE:
+    case SAVE_TODO:
+      return {
+        isEditing: null,
+        isDisabled: true,
+        todos: action.payload,
+      };
+    case CANCEL_EDIT_TODO:
+      return {
+        ...state,
+        isEditing: null,
+        isDisabled: true,
+      };
+    case ENABLE_INPUT:
+      return {
+        ...state,
+        isDisabled: false,
+      };
+    case REORDER_TODOS:
       return {
         ...state,
         todos: action.payload,
       };
-    case CANCEL:
-      return {
-        ...state,
-        isEditing: null,
-        isDisabled: true
-      };
-    case ENABLE:
-      return {
-        ...state,
-        isDisabled: false
-      }
     default:
       return state;
   }
